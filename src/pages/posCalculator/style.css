@@ -1,0 +1,8 @@
+
+.inputs {
+  @apply flex flex-col
+}
+
+h2 {
+  @apply text-blue
+}
