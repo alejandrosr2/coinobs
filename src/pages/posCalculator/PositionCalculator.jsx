@@ -21,13 +21,11 @@ const PositionCalculator = () => {
 
     const [results, setResults] = useState({ positionSize: "", positionValue: "", maxLostUnit: "" });
 
-    // Manejar cambios en los inputs
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormValues((prev) => ({ ...prev, [name]: value }));
     };
 
-    // Cálculo de la posición
     useEffect(() => {
         const { initialCapital, maxLost, entryPrice, stoploss } = formValues;
         if (initialCapital && maxLost && entryPrice && stoploss) {

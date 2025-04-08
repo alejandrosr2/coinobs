@@ -12,29 +12,24 @@ const Portfolio = () => {
     
     
     useEffect(() => {
-        // Cargar los datos del localStorage
         const savedPortfolio = JSON.parse(localStorage.getItem("portfolio")) || {};
         setPortfolio(savedPortfolio);
 
-        // Cargar el nombre guardado
         const savedName = localStorage.getItem("portfolioName");
         if (savedName) {
             setPortfolioName(savedName);
         }
     }, []);
 
-    // Función para manejar el cambio de nombre
     const handleNameChange = (e) => {
         setPortfolioName(e.target.value);
     };
 
-    // Función para guardar el nombre
     const handleNameSave = () => {
         setIsEditing(false);
         localStorage.setItem("portfolioName", portfolioName); 
     };
 
-    // Función para eliminar del portafolio
     const removeFromPortfolio = (id) => {
         const updatedPortfolio = { ...portfolio };
         delete updatedPortfolio[id]; 
@@ -43,17 +38,14 @@ const Portfolio = () => {
         setPortfolio(updatedPortfolio);
     };
 
-    // Mostrar tooltip cuando el mouse entra
     const handleMouseEnter = (id) => {
         setTooltipVisible((prev) => ({ ...prev, [id]: true }));
     };
 
-    // Ocultar tooltip cuando el mouse sale
     const handleMouseLeave = (id) => {
         setTooltipVisible((prev) => ({ ...prev, [id]: false }));
     };
 
-    // Verifica que portfolio tiene datos antes de renderizar,si no los tiene muestra otro componente
     if (Object.keys(portfolio).length === 0) {
         return <EmptyList 
             fotobg={fotobg}

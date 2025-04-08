@@ -4,14 +4,12 @@ import fotobg from "../../assets/fotowatchlist.png";
 import EmptyList from '../../components/emptyList/EmptyList';
 
 const WatchList = () => {
-    const [cryptoData, setCryptoData] = useState([]); // Estado para las criptomonedas
-    const [tooltipVisible, setTooltipVisible] = useState({}); // Para manejar la visibilidad del tooltip
+    const [cryptoData, setCryptoData] = useState([]); 
+    const [tooltipVisible, setTooltipVisible] = useState({});
 
-    useEffect(() => {
-        // Recuperar el watchlist desde localStorage, si no existe, inicializamos como objeto vacío
+    useEffect(() => {       
         const savedWatchList = JSON.parse(localStorage.getItem('watchList')) || {};
         
-        // Limpiar cualquier clave con valor null o vacío
         const cleanedWatchList = Object.keys(savedWatchList)
             .filter((key) => savedWatchList[key] !== null && savedWatchList[key] !== "")
             .reduce((obj, key) => {
@@ -19,15 +17,12 @@ const WatchList = () => {
                 return obj;
             }, {});
 
-        // Guardamos el watchlist limpio en el localStorage
         localStorage.setItem('watchList', JSON.stringify(cleanedWatchList));
 
-        // Recuperar el listado de criptomonedas almacenado
-        const watchListIds = Object.keys(cleanedWatchList); // Usamos el watchlist limpio
+        const watchListIds = Object.keys(cleanedWatchList); 
         const storedCryptoData = JSON.parse(localStorage.getItem('cryptoDataCache'));
 
         if (storedCryptoData) {
-            // Filtramos las monedas que están en el watchlist
             const filteredData = storedCryptoData.data.filter(coin => watchListIds.includes(coin.rank.toString()));
             setCryptoData(filteredData);
         }
@@ -36,13 +31,10 @@ const WatchList = () => {
     const removeFromWatchList = (id) => {
         const updatedWatchList = JSON.parse(localStorage.getItem('watchList')) || {};
         
-        // Eliminar la moneda del watchlist
         delete updatedWatchList[id];
         
-        // Guardar el nuevo watchlist limpio
         localStorage.setItem('watchList', JSON.stringify(updatedWatchList));
 
-        // Actualizamos el estado de las criptomonedas mostradas
         setCryptoData((prevCryptoData) => prevCryptoData.filter(coin => coin.rank.toString() !== id));
     };
 
@@ -54,12 +46,10 @@ const WatchList = () => {
         setTooltipVisible((prev) => ({ ...prev, [rank]: false }));
     };
 
-    // Recuperar el watchlist limpio para verificar si está vacío
     const savedWatchList = JSON.parse(localStorage.getItem('watchList')) || {};
     const watchListIds = Object.keys(savedWatchList);
 
-    // Si el watchlist está vacío, mostramos EmptyWatchlist
-    if (watchListIds.length <= 1) {
+    if (watchListIds.length < 1) {
         return <EmptyList 
             fotobg={fotobg}
             textH2="¿Quieres seguir los movimientos de alguna moneda?"
@@ -69,8 +59,7 @@ const WatchList = () => {
 
     return (
         <div className="pt-10">
-            <h1 className="text-2xl font-bold mb-4">Watchlist</h1>
-            {cryptoData.length > 0 ? (
+            <h1 className="text-2xl font-bold mb-4">Watchlist</h1>           
                 <table className="min-w-full">
                     <thead>
                         <tr className="border-b border-gray-300/20">
@@ -112,9 +101,7 @@ const WatchList = () => {
                         ))}
                     </tbody>
                 </table>
-            ) : (
-                <p>No tienes monedas en tu lista de seguimiento. Si desea añadir alguna, pulse aqui.</p>
-            )}
+            
         </div>
     );
 };

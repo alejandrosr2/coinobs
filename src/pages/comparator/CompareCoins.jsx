@@ -44,7 +44,6 @@ const CompareCoins = () => {
         }
     };
 
-    // Función para intercambiar las monedas 
     const swapCoins = () => {
         setSelectedCoinA(selectedCoinB);
         setSelectedCoinB(selectedCoinA);

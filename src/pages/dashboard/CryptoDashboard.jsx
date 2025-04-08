@@ -31,7 +31,7 @@ const CryptoDashboard = () => {
         };
         getData();
     }, []);
-    // Icono de ordenación para las columnas
+    
     const renderSortIcon = (column) => {
         return (
             <span style={{ display: 'inline-block', width: '20px' }}>
@@ -39,12 +39,12 @@ const CryptoDashboard = () => {
             </span>
         );
     };
-    // Filtrar las monedas según el término de búsqueda
+
     const filteredData = sortedData.filter((coin) =>
         coin.name.toLowerCase().includes(searchTerm) ||
         coin.symbol.toLowerCase().includes(searchTerm)
     );
-    // Manejar envío del formulario del portafolio
+
     const handleFormSubmit = (formData) => {
         if (selectedCoin) {
             addToPortfolio(selectedCoin, formData);

@@ -114,7 +114,6 @@ const CoinStats = () => {
                             <FiHeart className="size-5 lg:size-10" />
                         )}
                     </div>
-                    {/* Texto dinámico */}
                     <div className="absolute inset-0 flex items-center justify-center transform translate-x-full transition-transform duration-300 group-hover:translate-x-0">
                         <span className="text-lg font-semibold">
                             {watchList[coinData.rank] ? "Quitar de la Watchlist" : "Añadir a la Watchlist"}

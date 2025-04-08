@@ -3,14 +3,13 @@ export const fetchCryptoData = async () => {
     const CACHE_EXPIRY = 5 * 60 * 1000; 
     const API_URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&price_change_percentage=1h%2C24h%2C7d';
 
-    // Obtener y validar los datos del caché
     const getCachedData = () => {
         try {
             const cachedData = JSON.parse(localStorage.getItem(CACHE_KEY));
             if (cachedData) {
                 const { timestamp, data } = cachedData;
                 const now = Date.now();
-                // Devolver los datos en caché si no han expirado
+                
                 if (now - timestamp < CACHE_EXPIRY) {
                     return data;
                 }
@@ -18,21 +17,18 @@ export const fetchCryptoData = async () => {
         } catch (error) {
             console.warn("Error leyendo datos de caché:", error);
         }
-        return null; // No hay datos válidos en caché o han expirado
+        return null; 
     };
 
-    // Guardar los datos en el caché
     const cacheData = (data) => {
         localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data }));
     };
 
-    // Intentar obtener los datos en caché primero
     const cachedData = getCachedData();
     if (cachedData) {
         return cachedData;
     }
 
-    // Si no hay datos válidos en caché, hacer la solicitud a la API
     try {
         const response = await fetch(API_URL, {
             method: 'GET',
@@ -47,7 +43,6 @@ export const fetchCryptoData = async () => {
 
         const data = await response.json();
 
-        // Procesar y formatear los datos obtenidos
         const processedData = data.map(coin => ({
             rank: coin.market_cap_rank,
             name: coin.name,
@@ -63,14 +58,12 @@ export const fetchCryptoData = async () => {
             maxSupply: coin.max_supply,
         }));
 
-        // Guardar los datos procesados en el caché
         cacheData(processedData);
 
         return processedData;
     } catch (error) {
         console.error("Hubo un problema al obtener los datos de la API:", error);
 
-        // Si hay error y existen datos en caché, retorna los datos en el caché expirados
         if (cachedData) {
             return cachedData;
         }

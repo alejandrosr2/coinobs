@@ -5,7 +5,6 @@ export const usePortfolioWatchlist = () => {
     const [portfolio, setPortfolio] = useState({});
     const [notifications, setNotifications] = useState([]);
 
-    // Cargar datos desde localStorage al inicializar
     useEffect(() => {
         const savedWatchList = JSON.parse(localStorage.getItem("watchList")) || {};
         const savedPortfolio = JSON.parse(localStorage.getItem("portfolio")) || {};
@@ -13,7 +12,6 @@ export const usePortfolioWatchlist = () => {
         setPortfolio(savedPortfolio);
     }, []);
 
-    // Mostrar una notificación
     const showNotification = (message) => {
         const newNotification = { id: Date.now(), message };
 
@@ -32,7 +30,6 @@ export const usePortfolioWatchlist = () => {
         });
     };
 
-    // Agregar o quitar monedas de la Watchlist
     const toggleWatchList = (id, name) => {
         setWatchList((prev) => {
             const isRemoving = !!prev[id];
@@ -51,7 +48,6 @@ export const usePortfolioWatchlist = () => {
         });
     };
 
-    // Agregar o actualizar monedas en el portafolio
     const addToPortfolio = (coinData, formData) => {
         setPortfolio((prev) => {
             const updated = {
@@ -70,7 +66,6 @@ export const usePortfolioWatchlist = () => {
         });
     };
 
-    //Eliminar monedas del portafolio
     const removeFromPortfolio = (id, name) => {
         setPortfolio((prev) => {
             const updated = { ...prev };

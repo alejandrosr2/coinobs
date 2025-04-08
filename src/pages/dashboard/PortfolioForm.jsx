@@ -7,13 +7,11 @@ const PortfolioForm = ({ selectedCoin, onClose, onSubmit }) => {
         date: ""
     });
 
-    // Manejo de datos del formulario
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
-    // Enviar el formulario
     const handleSubmit = (e) => {
         e.preventDefault();
         onSubmit(formData);

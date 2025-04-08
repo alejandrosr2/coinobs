@@ -12,15 +12,15 @@ const PortfolioStats = () => {
     const [portfolioChange24h, setPortfolioChange24h] = useState(0);
 
     useEffect(() => {
-        // Cargar los datos 
+
         const savedPortfolio = JSON.parse(localStorage.getItem("portfolio")) || {};
         setPortfolio(savedPortfolio);
-        // Calcular el balance inicial 
+
         const initialBalance = Object.values(savedPortfolio).reduce((total, coin) => {
             return total + (coin.holdings * coin.avgBuyPrice);
         }, 0);
         setInitialInvestment(initialBalance);
-        // Calcular las ganancias totales en dólares
+
         const portfolioValues = Object.values(savedPortfolio).map(coin => {
             const profitForCoin = (coin.currentPrice - coin.avgBuyPrice) * coin.holdings;
             const profitPercentageForCoin = ((coin.currentPrice - coin.avgBuyPrice) / coin.avgBuyPrice) * 100;
@@ -33,14 +33,12 @@ const PortfolioStats = () => {
         });
 
         const totalProfitDollar = portfolioValues.reduce((total, coin) => total + coin.profitDollar, 0);
-        setProfitDollar(totalProfitDollar);
-            // Calcular el cambio en las últimas 24 horas usando el cambio porcentual 
+        setProfitDollar(totalProfitDollar); 
             let totalChange24h = 0;
             portfolioValues.forEach(coin => {
                 const priceChange1d = coin.priceChange1d; 
     
                 if (priceChange1d) {
-                    // Calcular el cambio en dólares basado en el cambio porcentual
                     const changeInDollars = (priceChange1d / 100) * coin.holdings * coin.currentPrice;
                     totalChange24h += changeInDollars;
                 }
@@ -62,7 +60,6 @@ const PortfolioStats = () => {
         }
     }, []);
 
-    // Función para determinar el color en base al valor (positivo o negativo)
     const getColorClass = (value) => {
         return value >= 0 ? 'text-green-500' : 'text-red-500';
     };

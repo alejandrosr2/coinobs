@@ -10,13 +10,12 @@ useEffect(() => {
     const getCryptoData = async () => {
         try {
             const data = await fetchCryptoData();
-            // Ordenar por cambio porcentual en las últimas 24 horas (de mayor a menor)
+            
             const sortedByChange = [...data].sort(
                 (a, b) => b.priceChange1d - a.priceChange1d
             );
-            // Obtener las 5 monedas con mayor subida
-            const gainers = sortedByChange.slice(0, 5);
-            // Obtener las 5 monedas con mayor caída 
+            
+            const gainers = sortedByChange.slice(0, 5);           
             const losers = [...data]
                 .filter((coin) => coin.priceChange1d < 0)
                 .sort((a, b) => a.priceChange1d - b.priceChange1d) 
@@ -52,7 +51,6 @@ useEffect(() => {
                     ))}
                 </ul>
             </div>
-
             {/* Lista de perdedores*/}
             <div className="overflow-hidden flex">
                 <ul className="flex gap-20 animate-infinite-scroll-left-to-right stop hover:cursor-pointer">

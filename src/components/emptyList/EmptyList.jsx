@@ -24,14 +24,13 @@ const EmptyList = ({fotobg, textH2, textP}) => {
         }
     }, []);
     
-    //Cambia el estado de visibilidad del dropdown
     const handleDropdownToggle = () => {
         setShowDropdown((prev) => !prev); 
     };
 
     const handleSelectCrypto = (name) => {
-        navigate(`/coin/${name}`); //Navega a la página de la criptomoneda seleccionada
-        setShowDropdown(false); //Cierra el dropdown después de la selección
+        navigate(`/coin/${name}`); 
+        setShowDropdown(false);
     };
 
     return (
@@ -45,7 +44,6 @@ const EmptyList = ({fotobg, textH2, textP}) => {
                 bgColor="red-500"
             onClick={handleDropdownToggle} 
             />
-            {/* Dropdown de criptomonedas */}
             {showDropdown && (
                 <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center">  
                     <div className="absolute mt-24 bg-bgColor rounded-lg border">
