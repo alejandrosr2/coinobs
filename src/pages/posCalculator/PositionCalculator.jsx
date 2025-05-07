@@ -52,9 +52,10 @@ const PositionCalculator = () => {
             <div className="grid lg:grid-cols-5 gap-2 ">
                 {data.map((data, i) => (
                     <div key={i} className="inputs">
-                        <label className="mb-2">{data.label}</label>
+                        <label htmlFor={data.name} className="mb-2">{data.label}</label>
                         <input
                             className="bg-bgColor border border-gray-300/20 focus:ring-0 focus:outline-none focus:border focus:border-gray-300/50 p-1 rounded-md w-full flex items-center justify-start space-x-2"
+                            id={data.name}
                             type={data.type}
                             name={data.name}
                             value={formValues[data.name]}

@@ -34,8 +34,8 @@ const CryptoDashboard = () => {
     
     const renderSortIcon = (column) => {
         return (
-            <span style={{ display: 'inline-block', width: '20px' }}>
-                {sortColumn === column && (sortOrder === 'asc' ? <GoTriangleUp /> : <GoTriangleDown />)}
+            <span style={{ display: "inline-block", width: "20px" }}>
+                {sortColumn === column && (sortOrder === "asc" ? <GoTriangleUp /> : <GoTriangleDown />)}
             </span>
         );
     };
